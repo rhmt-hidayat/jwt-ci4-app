@@ -34,6 +34,8 @@ class Filters extends BaseFilters
         'forcehttps'    => ForceHTTPS::class,
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
+        'auth'          => \App\Filters\Auth::class,
+        'cors'          => \App\Filters\Cors::class,
     ];
 
     /**
@@ -72,6 +74,7 @@ class Filters extends BaseFilters
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'cors', //selalu dijalankan setiap kali request dilakukan
         ],
         'after' => [
             // 'honeypot',

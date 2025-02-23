@@ -6,6 +6,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use CodeIgniter\RESTful\ResourceController;
 use Codeigniter\API\ResponseTrait; //tambahkan response trait
 use App\Models\UserModel; //memanggil model user
+use Firebase\JWT\JWT; //memanggil library jwt
 
 class Login extends ResourceController
 {
@@ -36,7 +37,20 @@ class Login extends ResourceController
         if (!$verify) {
             return $this->failUnauthorized('Password salah');
         }
-        return $this->respond('Login berhasil');
+
+        //konfigurasi JWT
+        $key = getenv('JWT_KEY');
+        $payload = [
+            // 'iss' => 'http://example.org',
+            // 'aud' => 'http://example.com',
+            'iat' => 1356999524,
+            'nbf' => 1357000000,
+            'uid' => $user['id'],
+            'email' => $user['email'],
+        ];
+        $token = JWT::encode($payload, $key, 'HS256');
+
+        return $this->respond($token);
         // return $this->respond($user, 200);
 
         //CARA LAIN
