@@ -36,6 +36,6 @@ class Register extends ResourceController
         // return $this->respondCreated($data);
         $registered = $model->save($data);
         $this->respondCreated($registered);
-        $this->respond(message: 'Register Berhasil');
+        $this->respond(['message' => 'Register Berhasil']);
     }
 }
